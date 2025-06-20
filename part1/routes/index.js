@@ -68,4 +68,34 @@ router.get('/api/walkrequests/open', function(req, res, next) {
   }
 });
 
+router.get('/api/walkers/open', function(req, res, next) {
+  try {
+    req.pool.getConnection(function(err, connection) {
+      if (err) {
+        res.status(500).json({ error: 'Database connection error'});
+        return;
+      }
 
+      const query = `
+        SELECT WalkRequests.request_id, Dogs.name AS dog_name,
+               WalkRequests.requested_time, WalkRequests.duration_minutes,
+               WalkRequests.location, Users.username AS owner_username
+        FROM WalkRequests
+        JOIN Dogs ON WalkRequests.dog_id = Dogs.dog_id
+        JOIN Users ON Dogs.owner_id = Users.user_id
+        WHERE WalkRequests.status = 'open'
+      `;
+
+      connection.query(query, function(queryErr, rows) {
+        connection.release();
+        if (queryErr) {
+          res.status(500).json({ error: 'Query error' });
+        } else {
+          res.json(rows);
+        }
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Unexpected error on server' });
+  }
+});
