@@ -16,11 +16,11 @@ router.get('/api/dogs', function(req, res, next) {
         return;
       }
 
-      const query = '
-                SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
+      const query = `
+        SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
         FROM Dogs
         JOIN Users ON Dogs.owner_id = Users.user_id
-      '
+      `
     })
   }
 });
