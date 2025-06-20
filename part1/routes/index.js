@@ -25,7 +25,7 @@ router.get('/api/dogs', function(req, res, next) {
       connection.query(query, function(err, rows) {
         connection.release();
         if (err) {
-          
+          res.status(500).json({ error: 'Query error' });
         }
       });
     })
