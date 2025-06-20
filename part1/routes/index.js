@@ -22,7 +22,7 @@ router.get('/api/dogs', function(req, res, next) {
         JOIN Users ON Dogs.owner_id = Users.user_id
       `;
 
-      connection.query(query, function(err, rows) {
+      connection.query(query, function(queryerr, rows) {
         connection.release();
         if (err) {
           res.status(500).json({ error: 'Query error' });
