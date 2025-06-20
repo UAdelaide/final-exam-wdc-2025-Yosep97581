@@ -77,7 +77,8 @@ router.get('/api/walkers/summary', function(req, res, next) {
       }
 
       const query = `
-         SELECT
+         SELECT u.username AS walker_username,
+                COUNT
       `;
 
       connection.query(query, function(queryErr, rows) {
