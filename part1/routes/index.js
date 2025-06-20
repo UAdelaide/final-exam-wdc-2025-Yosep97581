@@ -31,5 +31,7 @@ router.get('/api/dogs', function(req, res, next) {
         }
       });
     });
+  } catch (error) {
+    res.status(500).json({ error: 'Un'})
   }
 });
