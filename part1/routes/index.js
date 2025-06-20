@@ -84,7 +84,8 @@ router.get('/api/walkers/summary', function(req, res, next) {
         FROM Users u
         LEFT JOIN WalkRatings r ON u.user_id = r.walker_id
         LEFT JOIN WalkRequests wr on u.user_id = wr.walker_id AND wr.status = 'completed'
-        WH
+        WHERE u.role = 'walker'
+        GROUP BY u.user_id
       `;
 
       connection.query(query, function(queryErr, rows) {
