@@ -12,7 +12,7 @@ router.get('/api/dogs', function(req, res, next) {
   try {
     req.protocol.getConnection(function(err, connection) {
       if (err) {
-        res.status(500).json
+        res.status(500).json({ error: 'Database connection error'});
       }
     })
   }
