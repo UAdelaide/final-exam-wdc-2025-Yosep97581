@@ -40,7 +40,8 @@ router.get('/api/walkrequests/open', function(req, res, next) {
   try {
     req.pool.getConnection(function(err, connection) {
       if (err) {
-        res.status(500).json
+        res.status(500).json({ error: 'Database connection error'});
+        return;
       }
     });
   }
