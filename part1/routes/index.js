@@ -83,7 +83,8 @@ router.get('/api/walkers/summary', function(req, res, next) {
                 COUNT(DISTINCT wr.request_id) AS completed_walks
         FROM Users u
         LEFT JOIN WalkRatings r ON u.user_id = r.walker_id
-        LEFT JOIN WalkRequests wr on u.user
+        LEFT JOIN WalkRequests wr on u.user_id = wr.walker_id AND wr.status = 'completed'
+        WH
       `;
 
       connection.query(query, function(queryErr, rows) {
