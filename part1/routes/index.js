@@ -80,6 +80,8 @@ router.get('/api/walkers/summary', function(req, res, next) {
          SELECT u.username AS walker_username,
                 COUNT(r.rating_id) AS total_ratings,
                 ROUND(AVG(r.rating), 1) AS average_rating,
+                COUNT(DISTINCT wr.request_id) AS completed_walks
+                
       `;
 
       connection.query(query, function(queryErr, rows) {
