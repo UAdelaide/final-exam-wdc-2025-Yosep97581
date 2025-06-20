@@ -3,7 +3,7 @@ INSERT INTO Users (username, email, password_hash, role) VALUES
 ('bobwalker', 'bob@example.com', 'hashed456', 'walker'),
 ('carol123', 'carol@example.com', 'hashed789', 'owner'),
 ('gurtyo', 'gurt@example.com', 'hashed679', 'walker'),
-('sigm', 'emily@example.com', 'hashed321', 'owner');
+('sigma', 'male@example.com', 'hashed321', 'owner');
 
 INSERT INTO Dogs (owner_id, name, size) VALUES
 ((SELECT user_id FROM Users WHERE username = 'alice123'), 'Max', 'medium'),
