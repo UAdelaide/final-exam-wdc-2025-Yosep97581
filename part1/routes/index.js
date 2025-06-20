@@ -10,7 +10,7 @@ module.exports = router;
 
 router.get('/api/dogs', function(req, res, next) {
   try {
-    req.protocol.getConnection(function(err, connection) {
+    req.pool.getConnection(function(err, connection) {
       if (err) {
         res.status(500).json({ error: 'Database connection error'});
         return;
