@@ -79,7 +79,7 @@ router.get('/api/walkers/summary', function(req, res, next) {
       const query = `
          SELECT u.username AS walker_username,
                 COUNT(r.rating_id) AS total_ratings,
-                ROUND(AVG(r.rating), 1)
+                ROUND(AVG(r.rating), 1) AS average_rating,
       `;
 
       connection.query(query, function(queryErr, rows) {
