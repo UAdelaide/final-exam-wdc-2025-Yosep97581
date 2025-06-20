@@ -38,6 +38,10 @@ router.get('/api/dogs', function(req, res, next) {
 
 router.get('/api/walkrequests/open', function(req, res, next) {
   try {
-    req.pool.getConnection(function(err, connection))
+    req.pool.getConnection(function(err, connection) {
+      if (err) {
+        res.status(500).json
+      }
+    });
   }
 });
