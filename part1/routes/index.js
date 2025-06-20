@@ -13,7 +13,14 @@ router.get('/api/dogs', function(req, res, next) {
     req.protocol.getConnection(function(err, connection) {
       if (err) {
         res.status(500).json({ error: 'Database connection error'});
+        return;
       }
+
+      const query = '
+                SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
+        FROM Dogs
+        JOIN Users ON Dogs.owner_id = Users.user_id
+      '
     })
   }
 });
