@@ -22,7 +22,12 @@ router.get('/api/dogs', function(req, res, next) {
         JOIN Users ON Dogs.owner_id = Users.user_id
       `;
 
-      connection.query(query)
+      connection.query(query, function(err, rows) {
+        connection.release();
+        if (err) {
+          
+        }
+      });
     })
   }
 });
