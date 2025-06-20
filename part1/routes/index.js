@@ -8,4 +8,8 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
-router.get('/api/dogs', function(req, res, next))
+router.get('/api/dogs', function(req, res, next) {
+  try {
+    req.protocol.getC
+  }
+});
