@@ -32,6 +32,9 @@
                     this.dogImage = data.message;
                 }
             },
-        })
+            mounted() {
+                this.fetchDog();
+            }
+        }).mount
     </script>
 </html>
