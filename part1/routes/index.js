@@ -68,7 +68,7 @@ router.get('/api/walkrequests/open', function(req, res, next) {
   }
 });
 
-router.get('/api/walkers/open', function(req, res, next) {
+router.get('/api/walkers/summary', function(req, res, next) {
   try {
     req.pool.getConnection(function(err, connection) {
       if (err) {
@@ -77,13 +77,7 @@ router.get('/api/walkers/open', function(req, res, next) {
       }
 
       const query = `
-        SELECT WalkRequests.request_id, Dogs.name AS dog_name,
-               WalkRequests.requested_time, WalkRequests.duration_minutes,
-               WalkRequests.location, Users.username AS owner_username
-        FROM WalkRequests
-        JOIN Dogs ON WalkRequests.dog_id = Dogs.dog_id
-        JOIN Users ON Dogs.owner_id = Users.user_id
-        WHERE WalkRequests.status = 'open'
+         SELECT
       `;
 
       connection.query(query, function(queryErr, rows) {
