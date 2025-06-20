@@ -53,6 +53,7 @@ router.get('/api/walkrequests/open', function(req, res, next) {
         JOIN Users ON Dogs.owner_id = Users.user_id
         WHERE WalkRequests.status = 'open'
       `;
+
       connection.query(query, function(queryErr, rows) {
         connection.release();
         if (queryErr) {
