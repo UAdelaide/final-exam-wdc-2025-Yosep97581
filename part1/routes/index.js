@@ -26,8 +26,10 @@ router.get('/api/dogs', function(req, res, next) {
         connection.release();
         if (err) {
           res.status(500).json({ error: 'Query error' });
+        } else {
+          res.json(rows);
         }
       });
-    })
+    });
   }
 });
