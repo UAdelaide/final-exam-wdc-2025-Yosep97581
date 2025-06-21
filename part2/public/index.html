@@ -78,8 +78,9 @@
         async function logout() {
           try {
             await fetch('/api/users/logout', {
-              
-            })
+              method: 'POST',
+              credentials: 'include'
+            });
           }
         }
 
