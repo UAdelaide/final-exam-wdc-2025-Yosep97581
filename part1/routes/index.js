@@ -116,7 +116,7 @@ router.post('/login', function(req,res) {
       Where username = ? AND password_hash = ?
     `;
     connection.query(query,[username, passowrd], function(queryErr, results) {
-
+      connection.release();
     });
   });
 });
