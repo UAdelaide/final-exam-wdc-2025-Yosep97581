@@ -112,7 +112,8 @@ router.post('/login', function(req,res) {
     }
 
     const query = `
-      SELECT * F
+      SELECT * FROM Users
+      Where username = ? AND password_hash = ?
     `
   })
 });
