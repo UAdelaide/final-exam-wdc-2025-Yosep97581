@@ -77,7 +77,8 @@
               headers: { 'Content-Type': 'application/json' },
             });
             const currentUser = await getCurrentUser();
-            if (!currentUser) throw new Error('Un')
+            if (!currentUser) throw new Error('walker ID error');
+            const walker_id = currentUser.user_id;
 
             const result = await res.json();
 
