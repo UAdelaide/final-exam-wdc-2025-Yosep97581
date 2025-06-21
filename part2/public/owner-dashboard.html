@@ -137,7 +137,7 @@
         }
 
         onMounted(() => {
-          loadWalks();
+          FetchDogs();
         });
 
         // handle logout
@@ -165,6 +165,7 @@
           message,
           error,
           submitWalkRequest,
+          FetchDogs,
           logout
         };
       }
