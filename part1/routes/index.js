@@ -123,7 +123,13 @@ router.post('/login', function(req,res) {
       } else {
         const user = results[0];
         req.session.user = user;
-        
+
+        if (user.role === 'owner') {
+          res.redirect('/owner');
+        } else if (user.role === 'walker') {
+          res.redirect('/walker');
+        } else {
+          res.status(403).send('Unknown role');
       }
     });
   });
