@@ -83,7 +83,8 @@
             });
             window.location.href = '/';
           } catch (err) {
-            
+            console.error('Logout error: ', err);
+            alert('Failed to logout')
           }
         }
 
