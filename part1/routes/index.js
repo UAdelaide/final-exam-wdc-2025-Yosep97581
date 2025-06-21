@@ -26,17 +26,6 @@ router.get('/api/dogs', async function (req, res, next) {
 router.get('/api/walkrequests/open', function (req, res, next) {
   try {
     const [rows] = await db.query(`
-      SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
-      FROM Dogs
-      JOIN Users ON Dogs.owner_id = Users.user_id
-    `);
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Unexpected error on server' });
-  }
-
-      const query = `
         SELECT WalkRequests.request_id, Dogs.name AS dog_name,
                WalkRequests.requested_time, WalkRequests.duration_minutes,
                WalkRequests.location, Users.username AS owner_username
@@ -44,18 +33,10 @@ router.get('/api/walkrequests/open', function (req, res, next) {
         JOIN Dogs ON WalkRequests.dog_id = Dogs.dog_id
         JOIN Users ON Dogs.owner_id = Users.user_id
         WHERE WalkRequests.status = 'open'
-      `;
-
-      connection.query(query, function (queryErr, rows) {
-        connection.release();
-        if (queryErr) {
-          res.status(500).json({ error: 'Query error' });
-        } else {
-          res.json(rows);
-        }
-      });
-    });
-  } catch (error) {
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Unexpected error on server' });
   }
 });
