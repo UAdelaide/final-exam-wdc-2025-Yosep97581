@@ -16,7 +16,7 @@
     <form @submit.prevent="login">
       <div class="mb-3">
         <label class="form-label">Username</label>
-<input type="text" v-model="loginForm.username" class="form-control" required>
+        <input type="text" v-model="loginForm.username" class="form-control" required>
       </div>
       <div class="mb-3">
         <label class="form-label">Password</label>
@@ -68,10 +68,8 @@
             const res = await fetch('/api/users/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: loginForm.value.email,
-                password: loginForm.value.password
-              }),
+              body: JSON.stringify({ username: loginForm.value.username, password: loginForm.value.password }),
+
               credentials: 'include'
             });
 
