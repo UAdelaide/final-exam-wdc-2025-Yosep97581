@@ -103,5 +103,7 @@ router.get('/api/walkers/summary', function(req, res, next) {
 });
 
 router.post('/login', function(req,res) {
-  const { username, password}
+  const { username, password } = req.body;
+
+  req.pool.getConnection(function(err, connection))
 });
