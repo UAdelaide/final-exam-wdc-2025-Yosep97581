@@ -102,4 +102,6 @@ router.get('/api/walkers/summary', function(req, res, next) {
   }
 });
 
-router.post('/login')
+router.post('/login', function(req,res) {
+  const { username, password}
+});
