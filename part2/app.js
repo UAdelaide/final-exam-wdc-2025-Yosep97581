@@ -15,6 +15,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.get('/owner-dashboard.html')
+
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
