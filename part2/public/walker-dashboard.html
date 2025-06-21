@@ -79,7 +79,11 @@
           }
         }
 
-        async function getU
+        async function getCurrentUser() {
+          try {
+            const res = await fetch('/api/users/me')
+          }
+        }
 
         // handle logout
         async function logout() {
