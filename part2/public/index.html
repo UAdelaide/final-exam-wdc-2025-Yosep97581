@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Dog Walking Service</title>
@@ -13,6 +12,7 @@
   <div id="app" class="container py-5">
     <h1 class="mb-4 text-primary">{{ heading }}</h1>
 
+    <!-- Login Form -->
     <form @submit.prevent="login">
       <div class="mb-3">
         <label class="form-label">Username</label>
@@ -24,51 +24,28 @@
       </div>
       <input type="submit" value="Log In" class="btn btn-primary">
     </form>
-
-    <!-- Dog list -->
-    <div v-if="dogs.length">
-      <h3>All Registered Dogs</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Dog ID</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Owner ID</th>
-            <th>Photo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="dog in dogs" :key="dog.dog_id">
-            <td>{{ dog.dog_id }}</td>
-            <td>{{ dog.name }}</td>
-            <td>{{ dog.size }}</td>
-            <td>{{ dog.owner_id }}</td>
-            <td><img :src="dog.photo_url" alt="Dog photo" width="80"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 
   <script>
-    const { createApp, ref, onMounted } = Vue;
+    const { createApp, ref } = Vue;
 
     createApp({
       setup() {
         const heading = ref('Welcome to the Dog Walking Service!');
         const loginForm = ref({
-          email: '',
+          username: '',
           password: ''
         });
-        const dogs = ref([]);
 
         async function login() {
           try {
             const res = await fetch('/api/users/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ username: loginForm.value.username, password: loginForm.value.password }),
+              body: JSON.stringify({
+                email: loginForm.value.username,  // your backend expects 'email' for now
+                password: loginForm.value.password
+              }),
               credentials: 'include'
             });
 
@@ -91,31 +68,15 @@
           }
         }
 
-        async function fetchDogs() {
-          try {
-            const res = await fetch('/api/dogs');
-            dogs.value = await res.json();
-          } catch (err) {
-            console.error('Fetch dogs error:', err);
-          }
-        }
-
-        onMounted(() => {
-          fetchDogs();
-        });
-
         return {
           heading,
           loginForm,
-          dogs,
           login
         };
       }
     }).mount('#app');
   </script>
 
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
