@@ -119,6 +119,21 @@
           }
         }
 
+        // handle logout
+        async function logout() {
+          try {
+            await fetch('/api/users/logout', {
+              method: 'POST',
+              credentials: 'include'
+            });
+            window.location.href = '/';
+          } catch (err) {
+            console.error('Logout error: ', err);
+            alert('Failed to logout');
+          }
+        }
+
+
         onMounted(() => {
           loadWalks();
         });
@@ -129,6 +144,7 @@
           message,
           error,
           submitWalkRequest
+          
         };
       }
     }).mount('#app');
