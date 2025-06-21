@@ -17,8 +17,16 @@ app.use(session({
 
 app.get('/owner-dashboard.html', (req, res, next) => {
     if(!req.session.user || req.session.user.role !== 'owner') {
-        return res.redirect
+        return res.redirect('/');
     }
+    return next();
+});
+
+app.get('/owner-dashboard.html', (req, res, next) => {
+    if(!req.session.user || req.session.user.role !== 'owner') {
+        return res.redirect('/');
+    }
+    return next();
 });
 
 // Routes
