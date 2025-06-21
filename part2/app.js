@@ -29,7 +29,7 @@ app.get('/walker-dashboard.html', (req, res, next) => {
     return next();
 });
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/public')))
 
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
