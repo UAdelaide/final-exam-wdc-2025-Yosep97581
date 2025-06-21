@@ -77,4 +77,18 @@ router.get('/list-dogs', async (req, res) => {
   }
 });
 
+// GET all dogs with owner
+router.get('/api/dogs', async function (req, res, next) {
+  try {
+    const [rows] = await db.query(`
+      SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
+      FROM Dogs
+      JOIN Users ON Dogs.owner_id = Users.user_id
+    `);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Unexpected error on server' });
+  }
+});
+
 module.exports = router;
