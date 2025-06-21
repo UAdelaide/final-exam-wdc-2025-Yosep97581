@@ -18,7 +18,6 @@ router.get('/api/dogs', async function (req, res, next) {
     `);
     res.json(rows);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Unexpected error on server' });
   }
 });
@@ -36,7 +35,6 @@ router.get('/api/walkrequests/open', async function (req, res, next) {
     `);
     res.json(rows);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Unexpected error on server' });
   }
 });
@@ -56,7 +54,6 @@ router.get('/api/walkers/summary', async function (req, res, next) {
     `);
     res.json(rows);
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Unexpected error on server' });
   }
 });
