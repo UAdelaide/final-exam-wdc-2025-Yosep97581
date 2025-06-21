@@ -102,7 +102,7 @@
 
         async function fetchDogs() {
           try {
-            const res = await fetch('/api/dogs');
+            const res = await fetch('/api/walks/dogs');
             const data = await res.json();
 
             // Fetch a random dog photo for each dog
