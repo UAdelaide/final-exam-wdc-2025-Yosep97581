@@ -16,7 +16,9 @@ app.use(session({
 }));
 
 app.get('/owner-dashboard.html', (req, res, next) => {
-    if(!req)
+    if(!req.session.user || req.session.user.role !== 'owner') {
+        return res.redirect
+    }
 });
 
 // Routes
