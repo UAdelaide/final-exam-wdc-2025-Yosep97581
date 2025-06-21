@@ -84,14 +84,15 @@
             window.location.href = '/';
           } catch (err) {
             console.error('Logout error: ', err);
-            alert('Failed to logout')
+            alert('Failed to logout');
           }
         }
 
         return {
           heading,
           loginForm,
-          login
+          login,
+          logout
         };
       }
     }).mount('#app');
