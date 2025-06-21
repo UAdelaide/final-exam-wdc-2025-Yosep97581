@@ -23,7 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(session ({
-  secret: 'dog'
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: true
 }));
 
 // catch 404 and forward to error handler
