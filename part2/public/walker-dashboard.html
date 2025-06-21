@@ -75,8 +75,10 @@
             const res = await fetch(`/api/walks/${requestId}/apply`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-      
             });
+            const currentUser = await getCurrentUser();
+            if (!currentUser) throw new Error('Un')
+
             const result = await res.json();
 
             if (!res.ok) throw new Error(result.error || 'Application failed');
