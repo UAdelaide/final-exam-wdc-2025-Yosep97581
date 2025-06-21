@@ -2,17 +2,17 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
 
-router.get('/api/dogs', function(req, res, next) {
+router.get('/api/dogs', function (req, res, next) {
   try {
-    req.pool.getConnection(function(err, connection) {
+    req.pool.getConnection(function (err, connection) {
       if (err) {
-        res.status(500).json({ error: 'Database connection error'});
+        res.status(500).json({ error: 'Database connection error' });
         return;
       }
 
@@ -22,7 +22,7 @@ router.get('/api/dogs', function(req, res, next) {
         JOIN Users ON Dogs.owner_id = Users.user_id
       `;
 
-      connection.query(query, function(queryErr, rows) {
+      connection.query(query, function (queryErr, rows) {
         connection.release();
         if (queryErr) {
           res.status(500).json({ error: 'Query error' });
@@ -36,11 +36,11 @@ router.get('/api/dogs', function(req, res, next) {
   }
 });
 
-router.get('/api/walkrequests/open', function(req, res, next) {
+router.get('/api/walkrequests/open', function (req, res, next) {
   try {
-    req.pool.getConnection(function(err, connection) {
+    req.pool.getConnection(function (err, connection) {
       if (err) {
-        res.status(500).json({ error: 'Database connection error'});
+        res.status(500).json({ error: 'Database connection error' });
         return;
       }
 
@@ -54,7 +54,7 @@ router.get('/api/walkrequests/open', function(req, res, next) {
         WHERE WalkRequests.status = 'open'
       `;
 
-      connection.query(query, function(queryErr, rows) {
+      connection.query(query, function (queryErr, rows) {
         connection.release();
         if (queryErr) {
           res.status(500).json({ error: 'Query error' });
@@ -68,11 +68,11 @@ router.get('/api/walkrequests/open', function(req, res, next) {
   }
 });
 
-router.get('/api/walkers/summary', function(req, res, next) {
+router.get('/api/walkers/summary', function (req, res, next) {
   try {
-    req.pool.getConnection(function(err, connection) {
+    req.pool.getConnection(function (err, connection) {
       if (err) {
-        res.status(500).json({ error: 'Database connection error'});
+        res.status(500).json({ error: 'Database connection error' });
         return;
       }
 
@@ -88,7 +88,7 @@ router.get('/api/walkers/summary', function(req, res, next) {
         GROUP BY u.user_id
       `;
 
-      connection.query(query, function(queryErr, rows) {
+      connection.query(query, function (queryErr, rows) {
         connection.release();
         if (queryErr) {
           res.status(500).json({ error: 'Query error' });
@@ -102,10 +102,10 @@ router.get('/api/walkers/summary', function(req, res, next) {
   }
 });
 
-router.post('/login', function(req,res) {
+router.post('/login', function (req, res) {
   const { username, password } = req.body;
 
-  req.pool.getConnection(function(err, connection) {
+  req.pool.getConnection(function (err, connection) {
     if (err) {
       res.status(500).send('Database connection failed');
       return;
@@ -115,7 +115,7 @@ router.post('/login', function(req,res) {
       SELECT * FROM Users
       Where username = ? AND password_hash = ?
     `;
-    connection.query(query,[username, passowrd], function(queryErr, results) {
+    connection.query(query, [username, passowrd], function (queryErr, results) {
       connection.release();
 
       if (queryErr || results.length === 0) {
@@ -130,6 +130,7 @@ router.post('/login', function(req,res) {
           res.redirect('/walker');
         } else {
           res.status(403).send('Unknown role');
+        }
       }
     });
   });
