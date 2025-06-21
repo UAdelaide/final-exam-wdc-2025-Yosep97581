@@ -28,28 +28,28 @@
   </div>
 
   <div v-if="dogs.length">
-  <h3 class="mt-5">All Registered Dogs</h3>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Dog ID</th>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Owner</th>
-        <th>Photo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="dog in dogs" :key="dog.dog_id">
-        <td>{{ dog.dog_id }}</td>
-        <td>{{ dog.dog_name }}</td>
-        <td>{{ dog.size }}</td>
-        <td>{{ dog.owner_username }}</td>
-        <td><img :src="dog.photo_url" alt="dog photo" width="80"></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <h3 class="mt-5">All Registered Dogs</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Dog ID</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Owner</th>
+          <th>Photo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="dog in dogs" :key="dog.dog_id">
+          <td>{{ dog.dog_id }}</td>
+          <td>{{ dog.dog_name }}</td>
+          <td>{{ dog.size }}</td>
+          <td>{{ dog.owner_username }}</td>
+          <td><img :src="dog.photo_url" alt="dog photo" width="80"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <script>
     const { createApp, ref } = Vue;
@@ -100,8 +100,29 @@
         const dogs = ref([]);
 
         async function fetchDogs() {
-          
+          try {
+            const res = await fetch('/api/dogs');
+            const data = await res.json();
+
+            // Fetch a random dog photo for each dog
+            const dogsWithPhotos = await Promise.all(data.map(async dog => {
+              const photoRes = await fetch('https://dog.ceo/api/breeds/image/random');
+              const photoData = await photoRes.json();
+              return {
+                ...dog,
+                photo_url: photoData.message
+              };
+            }));
+
+            dogs.value = dogsWithPhotos;
+          } catch (err) {
+            console.error('Error fetching dogs:', err);
+          }
         }
+
+        onMounted(() => {
+          fetchDogs();
+        });
 
         return {
           heading,
