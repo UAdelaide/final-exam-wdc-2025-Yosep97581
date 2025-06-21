@@ -1,23 +1,20 @@
-INSERT INTO Users (user_id, username, email, password_hash, role) VALUES
-(10, 'owner1', 'o1@example.com', 'pass1', 'owner'),
-(11, 'owner2', 'o2@example.com', 'pass2', 'owner');
+-- USERS
+INSERT INTO Users (username, email, password_hash, role) VALUES
+('walker1', 'walker1@example.com', 'hash1', 'walker'),
+('walker2', 'walker2@example.com', 'hash2', 'walker'),
+('owner1', 'owner1@example.com', 'hash3', 'owner');
 
-INSERT INTO Dogs (dog_id, owner_id, name, size) VALUES
-(100, 10, 'Buddy', 'small'),
-(101, 11, 'Daisy', 'large');
+-- DOGS (owned by owner1, user_id = 3)
+INSERT INTO Dogs (owner_id, name, size) VALUES
+(3, 'Rex', 'large'),
+(3, 'Luna', 'medium');
 
-INSERT INTO WalkRequests (request_id, dog_id, requested_time, duration_minutes, location, status) VALUES
-(200, 100, '2025-06-22 09:00:00', 30, 'City Park', 'open'),
-(201, 101, '2025-06-23 15:00:00', 45, 'Riverside Trail', 'open');
+-- WALK REQUESTS (for owner1's dogs)
+INSERT INTO WalkRequests (dog_id, requested_time, duration_minutes, location, status) VALUES
+(1, '2024-06-01 10:00:00', 30, 'Central Park', 'completed'),
+(2, '2024-06-02 11:00:00', 45, 'Riverside Park', 'completed');
 
-INSERT INTO Users (user_id, username, email, password_hash, role) VALUES
-(12, 'walker1', 'w1@example.com', 'pass3', 'walker'),
-(13, 'walker2', 'w2@example.com', 'pass4', 'walker');
-
-INSERT INTO WalkRequests (request_id, dog_id, requested_time, duration_minutes, location, status, walker_id) VALUES
-(202, 100, '2025-06-20 11:00:00', 40, 'Dog Hill', 'completed', 12),
-(203, 101, '2025-06-21 10:00:00', 25, 'Sunset Loop', 'completed', 12);
-
-INSERT INTO WalkRatings (rating_id, walker_id, rating) VALUES
-(1, 12, 4),
-(2, 12, 5);
+-- WALK RATINGS (walker1 and walker2 rated by owner1)
+INSERT INTO WalkRatings (request_id, walker_id, owner_id, rating, comments) VALUES
+(1, 1, 3, 5, 'Great walk!'),
+(2, 2, 3, 4, 'Good, but a bit late.');
