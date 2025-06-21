@@ -60,6 +60,13 @@
           }
         }
 
+        async function getCurrentUser() {
+          try {
+            const res = await fetch('/api/users/me', {credentials: 'include'});
+
+          }
+        }
+
         async function applyToWalk(requestId) {
           try {
             const res = await fetch(`/api/walks/${requestId}/apply`, {
@@ -76,13 +83,6 @@
           } catch (err) {
             error.value = err.message;
             message.value = '';
-          }
-        }
-
-        async function getCurrentUser() {
-          try {
-            const res = await fetch('/api/users/me', {credentials: 'include'});
-            
           }
         }
 
