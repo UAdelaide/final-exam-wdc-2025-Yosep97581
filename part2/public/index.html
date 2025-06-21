@@ -13,7 +13,7 @@
 
     <!-- Login form -->
     <div class="mb-4">
-      <input v-model="username" class="form-control mb-2" placeholder="Username">
+      <input v-model="email" class="form-control mb-2" placeholder="Email">
       <input v-model="password" type="password" class="form-control mb-2" placeholder="Password">
       <button @click="login" class="btn btn-primary">Log In</button>
     </div>
@@ -50,7 +50,7 @@
       data() {
         return {
           heading: 'Welcome to the Dog Walking Service!',
-          username: '',
+          email: '',
           password: '',
           dogs: []
         };
@@ -58,7 +58,7 @@
       methods: {
         async fetchDogs() {
           try {
-            const res = await fetch('/api/dogs'); // Adjust this route if needed
+            const res = await fetch('/api/dogs');
             this.dogs = await res.json();
           } catch (err) {
             console.error('Failed to fetch dogs', err);
@@ -66,21 +66,27 @@
         },
         async login() {
           try {
-            const res = await fetch('/api/login', {
+            const res = await fetch('/api/users/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ username: this.username, password: this.password })
+              body: JSON.stringify({ email: this.email, password: this.password })
             });
             const result = await res.json();
-            if (result.role === 'owner') {
-              window.location.href = 'owner-dashboard.html';
-            } else if (result.role === 'walker') {
-              window.location.href = 'walker-dashboard.html';
+
+            if (res.ok && result.user) {
+              if (result.user.role === 'owner') {
+                window.location.href = 'owner-dashboard.html';
+              } else if (result.user.role === 'walker') {
+                window.location.href = 'walker-dashboard.html';
+              } else {
+                alert('Unknown role');
+              }
             } else {
-              alert('Login failed');
+              alert(result.error || 'Login failed');
             }
           } catch (err) {
             alert('Server error');
+            console.error(err);
           }
         }
       },
