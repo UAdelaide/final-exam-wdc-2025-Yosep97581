@@ -117,6 +117,8 @@ router.post('/login', function(req,res) {
     `;
     connection.query(query,[username, passowrd], function(queryErr, results) {
       connection.release();
+
+      if (queryErr )
     });
   });
 });
