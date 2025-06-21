@@ -54,6 +54,7 @@
 
             const result = await res.json();
 
+            // Redirect user based on their role
             if (res.ok && result.user) {
               if (result.user.role === 'owner') {
                 window.location.href = 'owner-dashboard.html';
