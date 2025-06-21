@@ -60,7 +60,7 @@ router.post('/:id/apply', async (req, res) => {
 });
 
 router.get('/dogs', async (req, res) => {
-  
+  if (!req.session.user || req.session)
 });
 
 module.exports = router;
