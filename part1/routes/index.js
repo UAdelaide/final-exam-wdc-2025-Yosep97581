@@ -121,7 +121,9 @@ router.post('/login', function(req,res) {
       if (queryErr || results.length === 0) {
         res.status(401).send('Invalid login');
       } else {
-        const user = results
+        const user = results[0];
+        req.session.user = user;
+        
       }
     });
   });
