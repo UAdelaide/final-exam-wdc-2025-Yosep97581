@@ -71,7 +71,9 @@ router.get('/listdogs', async (req, res) => {
     `, [req.session.user.user_id]);
 
     res.json(rows);
-  } catch
+  } catch (error) {
+    res.status(500).json
+  }
 });
 
 module.exports = router;
