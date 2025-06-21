@@ -130,7 +130,7 @@
         async function FetchDogs() {
           try {
             const res = await fetch('/api/walks/listdogs', {
-              
+              credentials: 'include'
             });
             dogs.value = await res.json();
           } catch (err) {
