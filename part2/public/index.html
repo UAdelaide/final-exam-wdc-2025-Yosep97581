@@ -32,11 +32,14 @@
     createApp({
       setup() {
         const heading = ref('Welcome to the Dog Walking Service!');
+
+        // Stores login form input
         const loginForm = ref({
           username: '',
           password: ''
         });
 
+        // Handle login request
         async function login() {
           try {
             const res = await fetch('/api/users/login', {
