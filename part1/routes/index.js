@@ -108,6 +108,11 @@ router.post('/login', function(req,res) {
   req.pool.getConnection(function(err, connection) {
     if (err) {
       res.status(500).send('Database connection failed');
+      return;
     }
+
+    const query = `
+      SELECT * F
+    `
   })
 });
