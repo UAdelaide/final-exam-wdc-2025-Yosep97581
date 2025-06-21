@@ -22,8 +22,8 @@ app.get('/owner-dashboard.html', (req, res, next) => {
     return next();
 });
 
-app.get('/owner-dashboard.html', (req, res, next) => {
-    if(!req.session.user || req.session.user.role !== 'owner') {
+app.get('/walker-dashboard.html', (req, res, next) => {
+    if(!req.session.user || req.session.user.role !== 'walker') {
         return res.redirect('/');
     }
     return next();
