@@ -132,9 +132,13 @@
             const res = await fetch('/api/walks/listdogs');
             dogs.value = await res.json();
           } catch (err) {
-            console.error('Failed t')
+            console.error('Failed to load dogs:', err);
           }
         }
+
+        onMounted(() => {
+          loadWalks();
+        });
 
         // handle logout
         async function logout() {
