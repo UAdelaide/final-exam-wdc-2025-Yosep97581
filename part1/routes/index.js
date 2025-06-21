@@ -41,15 +41,9 @@ router.get('/api/walkrequests/open', async function (req, res, next) {
   }
 });
 
-router.get('/api/walkers/summary', function (req, res, next) {
+router.get('/api/walkers/summary', async function (req, res, next) {
   try {
-    req.pool.getConnection(function (err, connection) {
-      if (err) {
-        res.status(500).json({ error: 'Database connection error' });
-        return;
-      }
-
-      const query = `
+    const [rows] = await db.query(`
         SELECT u.username AS walker_username,
                 COUNT(r.rating_id) AS total_ratings,
                 ROUND(AVG(r.rating), 1) AS average_rating,
@@ -59,18 +53,10 @@ router.get('/api/walkers/summary', function (req, res, next) {
         LEFT JOIN WalkRequests wr on u.user_id = wr.walker_id AND wr.status = 'completed'
         WHERE u.role = 'walker'
         GROUP BY u.user_id
-      `;
-
-      connection.query(query, function (queryErr, rows) {
-        connection.release();
-        if (queryErr) {
-          res.status(500).json({ error: 'Query error' });
-        } else {
-          res.json(rows);
-        }
-      });
-    });
-  } catch (error) {
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Unexpected error on server' });
   }
 });
