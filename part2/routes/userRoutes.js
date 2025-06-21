@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
+const { routes } = require('../app');
 
 // GET all users (for admin/testing)
 router.get('/', async (req, res) => {
@@ -58,4 +59,5 @@ router.post('/login', async (req, res) => {
   }
 });
 
+routes.post('/logout', (req, res) =>)
 module.exports = router;
