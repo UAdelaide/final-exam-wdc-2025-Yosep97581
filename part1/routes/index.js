@@ -135,3 +135,11 @@ router.post('/login', function (req, res) {
     });
   });
 });
+
+router.get('/owner', (req, res) => {
+  res.send('Owner Dashboard');
+});
+
+router.get('/walker', (req, res) => {
+  res.send('Walker Dashboard');
+});
