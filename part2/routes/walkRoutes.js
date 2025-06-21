@@ -81,9 +81,8 @@ router.get('/list-dogs', async (req, res) => {
 router.get('/dogs', async function (req, res, next) {
   try {
     const [rows] = await db.query(`
-      SELECT Dogs.dog_id, Dogs.name AS dog_name, Dogs.size, Dogs.owner_id
+      SELECT dog_id, name AS dog_name, size, owner_id
       FROM Dogs
-      JOIN Users ON Dogs.owner_id = Users.user_id
     `);
     res.json(rows);
   } catch (err) {
