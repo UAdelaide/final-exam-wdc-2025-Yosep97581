@@ -65,7 +65,9 @@ router.get('/listdogs', async (req, res) => {
   }
 
   try {
-    
+    const [rows] = await db.query(`
+      
+      `)
   }
 });
 
