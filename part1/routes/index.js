@@ -25,11 +25,16 @@ router.get('/api/dogs', async function (req, res, next) {
 
 router.get('/api/walkrequests/open', function (req, res, next) {
   try {
-    req.pool.getConnection(function (err, connection) {
-      if (err) {
-        res.status(500).json({ error: 'Database connection error' });
-        return;
-      }
+    const [rows] = await db.query(`
+      SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
+      FROM Dogs
+      JOIN Users ON Dogs.owner_id = Users.user_id
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Unexpected error on server' });
+  }
 
       const query = `
         SELECT WalkRequests.request_id, Dogs.name AS dog_name,
