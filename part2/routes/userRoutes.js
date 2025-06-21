@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
 });
 
 routes.post('/logout', (req, res) => {
-  req.session.destory(err => {
+  req.session.destory((err) => {
     if (err) return res.status(500).json({ error: 'Logout failed' });
     res.clearCookie('connect.sid');
     res.json({ message: 'Logged out '});
