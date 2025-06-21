@@ -77,7 +77,7 @@ router.get('/list-dogs', async (req, res) => {
   }
 });
 
-// GET all dogs with owner
+// GET all dogs with owner username
 router.get('/api/dogs', async function (req, res, next) {
   try {
     const [rows] = await db.query(`
