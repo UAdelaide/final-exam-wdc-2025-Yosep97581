@@ -52,26 +52,27 @@
   </div>
 
   <script>
-    const { createApp, ref } = Vue;
+    const { createApp, ref, onMounted } = Vue;
+
     createApp({
-      data() {
-        return {
-          message: 'Welcome to the Dog Walking Service!'
-        };
-      },
       setup() {
+        const heading = ref('Welcome to the Dog Walking Service!');
         const loginForm = ref({
           email: '',
           password: ''
         });
+        const dogs = ref([]);
 
         async function login() {
           try {
             const res = await fetch('/api/users/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: loginForm.value.email, password: loginForm.value.password }),
-              credentials: 'include' // keep session cookie
+              body: JSON.stringify({
+                email: loginForm.value.email,
+                password: loginForm.value.password
+              }),
+              credentials: 'include'
             });
 
             const result = await res.json();
@@ -87,15 +88,29 @@
             } else {
               alert(result.error || 'Login failed');
             }
-
           } catch (err) {
             console.error('Login error:', err);
             alert('Server error');
           }
         }
 
+        async function fetchDogs() {
+          try {
+            const res = await fetch('/api/dogs');
+            dogs.value = await res.json();
+          } catch (err) {
+            console.error('Fetch dogs error:', err);
+          }
+        }
+
+        onMounted(() => {
+          fetchDogs();
+        });
+
         return {
+          heading,
           loginForm,
+          dogs,
           login
         };
       }
