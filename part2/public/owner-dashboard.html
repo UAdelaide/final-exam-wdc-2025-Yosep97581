@@ -136,6 +136,10 @@
           }
         }
 
+        onMounted(() => {
+          FetchDogs();
+        });
+
         // handle logout
         async function logout() {
           try {
@@ -153,7 +157,6 @@
 
         onMounted(() => {
           loadWalks();
-          FetchDogs
         });
 
         return {
