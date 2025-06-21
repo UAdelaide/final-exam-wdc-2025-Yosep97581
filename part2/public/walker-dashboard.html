@@ -80,6 +80,8 @@
             if (!currentUser) throw new Error('walker ID error');
             const walker_id = currentUser.user_id;
 
+            const res
+
             const result = await res.json();
 
             if (!res.ok) throw new Error(result.error || 'Application failed');
