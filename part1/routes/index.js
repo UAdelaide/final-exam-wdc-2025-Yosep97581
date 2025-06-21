@@ -114,6 +114,7 @@ router.post('/login', function(req,res) {
     const query = `
       SELECT * FROM Users
       Where username = ? AND password_hash = ?
-    `
+    `;
+    connection.query(query,[username, passowrd])
   })
 });
