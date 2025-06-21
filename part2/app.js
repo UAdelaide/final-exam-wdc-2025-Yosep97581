@@ -29,6 +29,8 @@ app.get('/walker-dashboard.html', (req, res, next) => {
     return next();
 });
 
+app.use(express.static(path.join()))
+
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
 const userRoutes = require('./routes/userRoutes');
